@@ -1,5 +1,5 @@
 ---
-title:  Java 代理模式详解
+title: Java 代理模式详解
 category: Java
 tag:
   - Java基础
@@ -13,7 +13,7 @@ tag:
 
 举个例子：新娘找来了自己的姨妈来代替自己处理新郎的提问，新娘收到的提问都是经过姨妈处理过滤之后的。姨妈在这里就可以看作是代理你的代理对象，代理的行为（方法）是接收和回复新郎的提问。
 
-![Understanding the Proxy Design Pattern | by Mithun Sasidharan | Medium](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/2020-8/1*DjWCgTFm-xqbhbNQVsaWQw.png)
+![Understanding the Proxy Design Pattern | by Mithun Sasidharan | Medium](https://oss.javaguide.cn/2020-8/1*DjWCgTFm-xqbhbNQVsaWQw.png)
 
 <p style="text-align:right;font-size:13px;color:gray">https://medium.com/@mithunsasidharan/understanding-the-proxy-design-pattern-5e63fe38052a</p>
 
@@ -21,7 +21,7 @@ tag:
 
 ## 2. 静态代理
 
-**静态代理中，我们对目标对象的每个方法的增强都是手动完成的（_后面会具体演示代码_），非常不灵活（_比如接口一旦新增加方法，目标对象和代理对象都要进行修改_）且麻烦(_需要对每个目标类都单独写一个代理类_)。** 实际应用场景非常非常少，日常开发几乎看不到使用静态代理的场景。
+**静态代理中，我们对目标对象的每个方法的增强都是手动完成的（_后面会具体演示代码_），非常不灵活（_比如接口一旦新增加方法，目标对象和代理对象都要进行修改_）且麻烦(_需要对每个目标类都单独写一个代理类_）。** 实际应用场景非常非常少，日常开发几乎看不到使用静态代理的场景。
 
 上面我们是从实现和应用角度来说的静态代理，从 JVM 层面来说， **静态代理在编译时就将接口、实现类、代理类这些都变成了一个个实际的 class 文件。**
 
@@ -237,7 +237,7 @@ public class JdkProxyFactory {
 }
 ```
 
-`getProxy()` ：主要通过`Proxy.newProxyInstance（）`方法获取某个类的代理对象
+`getProxy()`：主要通过`Proxy.newProxyInstance（）`方法获取某个类的代理对象
 
 **5.实际使用**
 
@@ -272,16 +272,15 @@ after method send
 public interface MethodInterceptor
 extends Callback{
     // 拦截被代理类中的方法
-    public Object intercept(Object obj, java.lang.reflect.Method method, Object[] args,
-                               MethodProxy proxy) throws Throwable;
+    public Object intercept(Object obj, java.lang.reflect.Method method, Object[] args,MethodProxy proxy) throws Throwable;
 }
 
 ```
 
-1. **obj** :被代理的对象（需要增强的对象）
-2. **method** :被拦截的方法（需要增强的方法）
-3. **args** :方法入参
-4. **proxy** :用于调用原始方法
+1. **obj** : 被代理的对象（需要增强的对象）
+2. **method** : 被拦截的方法（需要增强的方法）
+3. **args** : 方法入参
+4. **proxy** : 用于调用原始方法
 
 你可以通过 `Enhancer`类来动态获取被代理类，当代理类调用方法的时候，实际调用的是 `MethodInterceptor` 中的 `intercept` 方法。
 
@@ -331,7 +330,7 @@ public class DebugMethodInterceptor implements MethodInterceptor {
 
 
     /**
-     * @param o           代理对象（增强的对象）
+     * @param o           被代理的对象（需要增强的对象）
      * @param method      被拦截的方法（需要增强的方法）
      * @param args        方法入参
      * @param methodProxy 用于调用原始方法
@@ -393,12 +392,11 @@ after method send
 
 ## 4. 静态代理和动态代理的对比
 
-1. **灵活性** ：动态代理更加灵活，不需要必须实现接口，可以直接代理实现类，并且可以不需要针对每个目标类都创建一个代理类。另外，静态代理中，接口一旦新增加方法，目标对象和代理对象都要进行修改，这是非常麻烦的！
-2. **JVM 层面** ：静态代理在编译时就将接口、实现类、代理类这些都变成了一个个实际的 class 文件。而动态代理是在运行时动态生成类字节码，并加载到 JVM 中的。
+1. **灵活性**：动态代理更加灵活，不需要必须实现接口，可以直接代理实现类，并且可以不需要针对每个目标类都创建一个代理类。另外，静态代理中，接口一旦新增加方法，目标对象和代理对象都要进行修改，这是非常麻烦的！
+2. **JVM 层面**：静态代理在编译时就将接口、实现类、代理类这些都变成了一个个实际的 class 文件。而动态代理是在运行时动态生成类字节码，并加载到 JVM 中的。
 
 ## 5. 总结
 
 这篇文章中主要介绍了代理模式的两种实现：静态代理以及动态代理。涵盖了静态代理和动态代理实战、静态代理和动态代理的区别、JDK 动态代理和 Cglib 动态代理区别等内容。
 
 文中涉及到的所有源码，你可以在这里找到：[https://github.com/Snailclimb/guide-rpc-framework-learning/tree/master/src/main/java/github/javaguide/proxy](https://github.com/Snailclimb/guide-rpc-framework-learning/tree/master/src/main/java/github/javaguide/proxy) 。
-

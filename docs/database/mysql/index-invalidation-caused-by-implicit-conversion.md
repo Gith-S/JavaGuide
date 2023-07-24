@@ -1,5 +1,5 @@
 ---
-title: MySQL中的隐式转换造成的索引失效
+title: MySQL隐式转换造成索引失效
 category: 数据库
 tag:
   - MySQL
@@ -76,7 +76,7 @@ CALL pre_test1();
 
 1000 万条数据，我用了 33 分钟才跑完（实际时间跟你电脑硬件配置有关）。这里贴几条生成的数据，大致长这样。
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-01.png)
+![](https://oss.javaguide.cn/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-01.png)
 
 ## SQL 测试
 
@@ -95,7 +95,7 @@ CALL pre_test1();
 
 为什么 34 两条 SQL 效率相差那么大，但是同样做对比的 12 两条 SQL 却没什么差别呢？查看一下执行计划，下边分别 1234 条 SQL 的执行计划数据：
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-02.png)
+![](https://oss.javaguide.cn/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-02.png)
 
 可以看到，124 三条 SQL 都能使用到索引，连接类型都为`ref`，扫描行数都为 1，所以效率非常高。再看看第三条 SQL，没有用上索引，所以为全表扫描，`rows`直接到达 1000 万了，所以性能差别才那么大。
 
@@ -103,7 +103,7 @@ CALL pre_test1();
 
 查阅 MySQL 相关文档发现是隐式转换造成的，看一下官方的描述：
 
-> 官方文档： [12.2 Type Conversion in Expression Evaluation](https://dev.mysql.com/doc/refman/5.7/en/type-conversion.html?spm=5176.100239.blogcont47339.5.1FTben)
+> 官方文档：[12.2 Type Conversion in Expression Evaluation](https://dev.mysql.com/doc/refman/5.7/en/type-conversion.html?spm=5176.100239.blogcont47339.5.1FTben)
 >
 > 当操作符与不同类型的操作数一起使用时，会发生类型转换以使操作数兼容。某些转换是隐式发生的。例如，MySQL 会根据需要自动将字符串转换为数字，反之亦然。以下规则描述了比较操作的转换方式：
 >
@@ -131,7 +131,7 @@ INSERT INTO `test1` (`id`, `num1`, `num2`, `type1`, `type2`, `str1`, `str2`) VAL
 
 然后使用第三条 SQL 语句`SELECT * FROM`test1`WHERE num2 = 10000;`进行查询：
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-03.png)
+![](https://oss.javaguide.cn/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-03.png)
 
 从结果可以看到，后面插入的三条数据也都匹配上了。那么这个字符串隐式转换的规则是什么呢？为什么`num2='10000a'`、`'010000'`和`'10000'`这三种情形都能匹配上呢？查阅相关资料发现规则如下：
 
@@ -140,13 +140,13 @@ INSERT INTO `test1` (`id`, `num1`, `num2`, `type1`, `type2`, `str1`, `str2`) VAL
 
 现对以上规则做如下测试验证：
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-04.png)
+![](https://oss.javaguide.cn/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-04.png)
 
 如此也就印证了之前的查询结果了。
 
 再次写一条 SQL 查询 str1 字段：`SELECT * FROM`test1`WHERE str1 = 1234;`
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-05.png)
+![](https://oss.javaguide.cn/github/javaguide/mysqlindex-invalidation-caused-by-implicit-conversion-05.png)
 
 ## 分析和总结
 

@@ -4,7 +4,7 @@ icon: home
 title: Java 面试指南
 heroImage: /logo.svg
 heroText: JavaGuide
-tagline: 「Java学习+面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！
+tagline: 「Java学习 + 面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！
 actions:
   - text: 开始阅读
     link: /home/
@@ -16,29 +16,31 @@ footer: |-
   <a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2020015769号-1</a> | 主题: <a href="https://vuepress-theme-hope.github.io/v2/" target="_blank">VuePress Theme Hope</a>
 ---
 
-## 网站概览 
+[![Banner](https://oss.javaguide.cn/xingqiu/xingqiu.png)](https://javaguide.cn/about-the-author/zhishixingqiu-two-years.html)
 
-- [Java 面试指南](./home.md) ：一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！
-- [Java开源项目精选](./open-source-project/readme.md) ：收集整理了 Gitee/Github 上非常棒的 Java 开源项目集合。Java 开发必备！
-- [Java技术文章精选](/high-quality-technical-articles/) : 精选一些和 Java 相关的优质技术文章，每一篇都值得你阅读 3 遍以上！
-- [Java书单精选](/books/) : Java 后端开发值得一读的一些书籍。
-- [走进作者](/about-the-author/) : 个人经历、闲聊杂谈。
+## 关于网站
 
-## 必看专栏
+- [项目介绍](./javaguide/intro.md)
+- [贡献指南](./javaguide/contribution-guideline.md)
+- [常见问题](./javaguide/faq.md)
 
-- **[《Java 面试指北》](./zhuanlan/java-mian-shi-zhi-bei.md)** : 与 JavaGuide 开源版的内容互补！
-- **[《手写 RPC 框架》](./zhuanlan/handwritten-rpc-framework.md)** : 从零开始基于 Netty+Kyro+Zookeeper 实现一个简易的 RPC 框架。
+## 关于作者
 
-## PDF
+- [我曾经也是网瘾少年](./about-the-author/internet-addiction-teenager.md)
+- [害，毕业三年了！](./about-the-author/my-college-life.md)
+- [我的知识星球快 3 岁了！](./about-the-author/zhishixingqiu-two-years.md)
+- [坚持写技术博客六年了](./about-the-author/writing-technology-blog-six-years.md)
 
-- [《JavaGuide 面试突击版》](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=100029614&idx=1&sn=62993c5cf10265cb7018db7f1ec67250&chksm=4ea1fb6579d67273499b7243641d4ef372decd08047bfbb6dfb5843ef81c7ccba209086cf345#rd)
-- [《消息队列常见知识点&面试题总结》](https://t.1yb.co/Fy0u)
-- [《Java 工程师进阶知识完全扫盲》](https://t.1yb.co/GXLF)
-- [《分布式相关面试题汇总》](https://t.1yb.co/GXLF)
-- [《图解计算机基础》](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=100021725&idx=1&sn=2db9664ca25363139a81691043e9fd8f&chksm=4ea19a1679d61300d8990f7e43bfc7f476577a81b712cf0f9c6f6552a8b219bc081efddb5c54#rd)
+## 知识星球
+
+对于准备面试的同学来说，强烈推荐我创建的一个纯粹的[Java 面试知识星球](./about-the-author/zhishixingqiu-two-years.md)，干货非常多，学习氛围也很不错！
+
+下面是星球提供的部分服务（点击下方图片即可获取知识星球的详细介绍）：
+
+[![星球服务](https://oss.javaguide.cn/xingqiu/xingqiufuwu.png)](./about-the-author/zhishixingqiu-two-years.md)
 
 ## 公众号
 
-最新更新会第一时间同步在公众号，强烈推荐大家关注一波！另外，公众号上有很多干货不会同步在线阅读网站。
+最新更新会第一时间同步在公众号，推荐关注！另外，公众号上有很多干货不会同步在线阅读网站。
 
-![我的公众号](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/books167598cd2e17b8ec.png)
+![JavaGuide 官方公众号](https://oss.javaguide.cn/github/javaguide/gongzhonghaoxuanchuan.png)

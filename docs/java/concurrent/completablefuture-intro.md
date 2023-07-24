@@ -1,10 +1,9 @@
 ---
-title:  CompletableFuture入门
+title: CompletableFuture 详解
 category: Java
 tag:
   - Java并发
 ---
-
 
 自己在项目中使用 `CompletableFuture` 比较多，看到很多开源框架中也大量使用到了 `CompletableFuture` 。
 
@@ -19,21 +18,25 @@ public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
 }
 ```
 
+![](https://oss.javaguide.cn/github/javaguide/java/concurrent/completablefuture-class-diagram.jpg)
+
 `CompletableFuture` 除了提供了更为好用和强大的 `Future` 特性之外，还提供了函数式编程的能力。
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/javaguide/image-20210902092441434.png)
+![](https://oss.javaguide.cn/javaguide/image-20210902092441434.png)
 
 `Future` 接口有 5 个方法：
 
-- `boolean cancel(boolean mayInterruptIfRunning)` ：尝试取消执行任务。
-- `boolean isCancelled()` ：判断任务是否被取消。
-- `boolean isDone()` ： 判断任务是否已经被执行完成。
-- `get()` ：等待任务执行完成并获取运算结果。
-- `get(long timeout, TimeUnit unit)` ：多了一个超时时间。
+- `boolean cancel(boolean mayInterruptIfRunning)`：尝试取消执行任务。
+- `boolean isCancelled()`：判断任务是否被取消。
+- `boolean isDone()`：判断任务是否已经被执行完成。
+- `get()`：等待任务执行完成并获取运算结果。
+- `get(long timeout, TimeUnit unit)`：多了一个超时时间。
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/javaguide/image-20210902093026059.png)
+`CompletionStage` 接口描述了一个异步计算的阶段。很多计算可以分成多个阶段或步骤，此时可以通过它将所有步骤组合起来，形成异步计算的流水线。
 
-`CompletionStage<T>` 接口中的方法比较多，`CompletableFuture` 的函数式能力就是这个接口赋予的。从这个接口的方法参数你就可以发现其大量使用了 Java8 引入的函数式编程。
+`CompletionStage` 接口中的方法比较多，`CompletableFuture` 的函数式能力就是这个接口赋予的。从这个接口的方法参数你就可以发现其大量使用了 Java8 引入的函数式编程。
+
+![](https://oss.javaguide.cn/javaguide/image-20210902093026059.png)
 
 由于方法众多，所以这里不能一一讲解，下文中我会介绍大部分常见方法的使用。
 
@@ -44,7 +47,7 @@ public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
 常见的创建 `CompletableFuture` 对象的方法如下：
 
 1. 通过 new 关键字。
-2. 基于 `CompletableFuture` 自带的静态工厂方法：`runAsync()` 、`supplyAsync()` 。
+2. 基于 `CompletableFuture` 自带的静态工厂方法：`runAsync()`、`supplyAsync()` 。
 
 #### new 关键字
 
@@ -75,13 +78,11 @@ public boolean isDone() {
 }
 ```
 
-获取异步计算的结果也非常简单，直接调用 `get()` 方法即可！
+获取异步计算的结果也非常简单，直接调用 `get()` 方法即可。调用 `get()` 方法的线程会阻塞直到 `CompletableFuture` 完成运算。
 
 ```java
 rpcResponse = completableFuture.get();
 ```
-
-注意 ： `get()` 方法并不会阻塞，因为我们已经知道异步运算的结果了。
 
 如果你已经知道计算的结果的话，可以使用静态方法 `completedFuture()` 来创建 `CompletableFuture` 。
 
@@ -417,7 +418,7 @@ assertEquals("hello!world!nice!", completableFuture.get());
 
 **那 `thenCompose()` 和 `thenCombine()` 有什么区别呢？**
 
-- `thenCompose()` 可以两个 `CompletableFuture` 对象，并将前一个任务的返回结果作为下一个任务的参数，它们之间存在着先后顺序。
+- `thenCompose()` 可以链接两个 `CompletableFuture` 对象，并将前一个任务的返回结果作为下一个任务的参数，它们之间存在着先后顺序。
 - `thenCombine()` 会在两个任务都执行完成后，把两个任务的结果合并。两个任务是并行执行的，它们之间并没有先后依赖顺序。
 
 ### 并行运行多个 CompletableFuture
@@ -523,4 +524,4 @@ abc
 
 如果想要深入学习的话，可以多找一些书籍和博客看。
 
-另外，建议G友们可以看看京东的 [asyncTool](https://gitee.com/jd-platform-opensource/asyncTool) 这个并发框架，里面大量使用到了  `CompletableFuture`  。
+另外，建议 G 友们可以看看京东的 [asyncTool](https://gitee.com/jd-platform-opensource/asyncTool) 这个并发框架，里面大量使用到了 `CompletableFuture` 。

@@ -1,15 +1,15 @@
-const { defineHopeConfig } = require("vuepress-theme-hope");
-import themeConfig from "./themeConfig";
+import { defineUserConfig } from "vuepress";
+import { searchPlugin } from "@vuepress/plugin-search";
+import theme from "./theme.js";
 
-module.exports = defineHopeConfig({
-  port: "8080",
-  title: "JavaGuide",
-  description:
-    "「Java学习指北+Java面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，复习 Java 知识点，首选 JavaGuide！  ",
-  //指定 vuepress build 的输出目录
+export default defineUserConfig({
   dest: "./dist",
-  // 是否开启默认预加载 js
-  shouldPrefetch: (file, type) => false,
+
+  title: "JavaGuide(Java面试 + 学习指南)",
+  description:
+    "「Java学习指北 + Java面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，复习 Java 知识点，首选 JavaGuide！  ",
+  lang: "zh-CN",
+
   head: [
     // meta
     ["meta", { name: "robots", content: "all" }],
@@ -37,25 +37,50 @@ module.exports = defineHopeConfig({
       "script",
       {},
       `var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
-        var s = document.getElementsByTagName("script")[0]; 
-        s.parentNode.insertBefore(hm, s);
-      })();`,
-    ],
-    [
-      "link",
-      {
-        rel: "stylesheet",
-        href: "/iconfont/iconfont.css",
-      },
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5dd2e8c97962d57b7b8fea1737c01743";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();`,
     ],
   ],
-  locales: {
-    "/": {
-      lang: "zh-CN",
-    },
-  },
-  themeConfig,
+
+  theme,
+
+  plugins: [
+    searchPlugin({
+      // https://v2.vuepress.vuejs.org/zh/reference/plugin/search.html
+      // 排除首页
+      isSearchable: (page) => page.path !== "/",
+      maxSuggestions: 10,
+      hotKeys: ["s", "/"],
+      // 用于在页面的搜索索引中添加额外字段
+      getExtraFields: () => [],
+      locales: {
+        "/": {
+          placeholder: "搜索",
+        },
+      },
+    }),
+    // searchProPlugin({
+    //   indexContent: true,
+    //   indexOptions: {
+    //     tokenize: (text, fieldName) =>
+    //       fieldName === "id" ? [text] : cut(text, true),
+    //   },
+    //   customFields: [
+    //     {
+    //       getter: ({ frontmatter }) =>
+    //         <string | undefined>frontmatter.category ?? null,
+    //       formatter: "分类: $content",
+    //     },
+    //   ],
+    //   suggestDelay: 60,
+    // }),
+  ],
+
+  pagePatterns: ["**/*.md", "!**/*.snippet.md", "!.vuepress", "!node_modules"],
+
+  shouldPrefetch: false,
 });

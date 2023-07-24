@@ -5,7 +5,7 @@ tag:
   - 算法
 ---
 
-> 本文转自：http://www.guoyaohua.com/sorting.html，JavaGuide 对其做了补充完善。
+> 本文转自：<http://www.guoyaohua.com/sorting.html>，JavaGuide 对其做了补充完善。
 
 ## 引言
 
@@ -17,12 +17,17 @@ tag:
 
 排序算法可以分为：
 
-- **内部排序** ：数据记录在内存中进行排序。
-- **[外部排序](https://zh.wikipedia.org/wiki/外排序)** ：因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。
+- **内部排序**：数据记录在内存中进行排序。
+- **[外部排序](https://zh.wikipedia.org/wiki/外排序)**：因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。
 
 常见的内部排序算法有：**插入排序**、**希尔排序**、**选择排序**、**冒泡排序**、**归并排序**、**快速排序**、**堆排序**、**基数排序**等，本文只讲解内部排序算法。用一张图概括：
 
-![十大排序算法](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/sort1.png)
+![十大排序算法](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/sort1.png)
+
+上图存在错误：
+
+1. 插入排序的最好时间复杂度为 O(n) 而不是 O(n^2) 。
+2. 希尔排序的平均时间复杂度为 O(nlogn)
 
 **图片名词解释：**
 
@@ -37,14 +42,14 @@ tag:
 - **不稳定**：如果 A 原本在 B 的前面，而 A=B，排序之后 A 可能会出现在 B 的后面。
 - **内排序**：所有排序操作都在内存中完成。
 - **外排序**：由于数据太大，因此把数据放在磁盘中，而排序通过磁盘和内存的数据传输才能进行。
-- **时间复杂度**： 定性描述一个算法执行所耗费的时间。
+- **时间复杂度**：定性描述一个算法执行所耗费的时间。
 - **空间复杂度**：定性描述一个算法执行所需内存的大小。
 
 ### 算法分类
 
 十种常见排序算法可以分类两大类别：**比较类排序**和**非比较类排序**。
 
-![排序算法分类](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/sort2.png)
+![排序算法分类](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/sort2.png)
 
 常见的**快速排序**、**归并排序**、**堆排序**以及**冒泡排序**等都属于**比较类排序算法**。比较类排序是通过比较来决定元素间的相对次序，由于其时间复杂度不能突破 `O(nlogn)`，因此也称为非线性时间比较类排序。在冒泡排序之类的排序中，问题规模为 `n`，又因为需要比较 `n` 次，所以平均时间复杂度为 `O(n²)`。在**归并排序**、**快速排序**之类的排序中，问题规模通过**分治法**消减为 `logn` 次，所以时间复杂度平均 `O(nlogn)`。
 
@@ -67,7 +72,7 @@ tag:
 
 ### 图解算法
 
-![冒泡排序](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/bubble_sort.gif)
+![冒泡排序](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/bubble_sort.gif)
 
 ### 代码实现
 
@@ -87,7 +92,7 @@ public static int[] bubbleSort(int[] arr) {
                 int tmp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = tmp;
-			    // Change flag
+       // Change flag
                 flag = false;
             }
         }
@@ -104,9 +109,9 @@ public static int[] bubbleSort(int[] arr) {
 ### 算法分析
 
 - **稳定性**：稳定
-- **时间复杂度** ：最佳：O(n) ，最差：O(n2)， 平均：O(n2)
-- **空间复杂度** ：O(1)
-- **排序方式** ：In-place
+- **时间复杂度**：最佳：O(n) ，最差：O(n2)， 平均：O(n2)
+- **空间复杂度**：O(1)
+- **排序方式**：In-place
 
 ## 选择排序 (Selection Sort)
 
@@ -120,7 +125,7 @@ public static int[] bubbleSort(int[] arr) {
 
 ### 图解算法
 
-![Selection Sort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/selection_sort.gif)
+![Selection Sort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/selection_sort.gif)
 
 ### 代码实现
 
@@ -151,9 +156,9 @@ public static int[] selectionSort(int[] arr) {
 ### 算法分析
 
 - **稳定性**：不稳定
-- **时间复杂度** ：最佳：O(n2) ，最差：O(n2)， 平均：O(n2)
-- **空间复杂度** ：O(1)
-- **排序方式** ：In-place
+- **时间复杂度**：最佳：O(n2) ，最差：O(n2)， 平均：O(n2)
+- **空间复杂度**：O(1)
+- **排序方式**：In-place
 
 ## 插入排序 (Insertion Sort)
 
@@ -174,7 +179,7 @@ public static int[] selectionSort(int[] arr) {
 
 ### 图解算法
 
-![insertion_sort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/insertion_sort.gif)
+![insertion_sort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/insertion_sort.gif)
 
 ### 代码实现
 
@@ -201,9 +206,9 @@ public static int[] insertionSort(int[] arr) {
 ### 算法分析
 
 - **稳定性**：稳定
-- **时间复杂度** ：最佳：O(n) ，最差：O(n2)， 平均：O(n2)
-- **空间复杂度** ：O(1)
-- **排序方式** ：In-place
+- **时间复杂度**：最佳：O(n) ，最差：O(n2)， 平均：O(n2)
+- **空间复杂度**：O(1)
+- **排序方式**：In-place
 
 ## 希尔排序 (Shell Sort)
 
@@ -223,7 +228,7 @@ public static int[] insertionSort(int[] arr) {
 
 ### 图解算法
 
-![shell_sort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/shell_sort.png)
+![shell_sort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/shell_sort.png)
 
 ### 代码实现
 
@@ -257,9 +262,9 @@ public static int[] shellSort(int[] arr) {
 
 ### 算法分析
 
-- **稳定性**：稳定
-- **时间复杂度** ：最佳：O(nlogn)， 最差：O(n2) 平均：O(nlogn)
-- **空间复杂度** ：`O(n)`
+- **稳定性**：不稳定
+- **时间复杂度**：最佳：O(nlogn)， 最差：O(n^2)  平均：O(nlogn)
+- **空间复杂度**：`O(1)`
 
 ## 归并排序 (Merge Sort)
 
@@ -280,7 +285,7 @@ public static int[] shellSort(int[] arr) {
 
 ### 图解算法
 
-![MergeSort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/merge_sort.gif)
+![MergeSort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/merge_sort.gif)
 
 ### 代码实现
 
@@ -341,8 +346,8 @@ public static int[] merge(int[] arr_1, int[] arr_2) {
 ### 算法分析
 
 - **稳定性**：稳定
-- **时间复杂度** ：最佳：O(nlogn)， 最差：O(nlogn)， 平均：O(nlogn)
-- **空间复杂度** ：O(n)
+- **时间复杂度**：最佳：O(nlogn)， 最差：O(nlogn)， 平均：O(nlogn)
+- **空间复杂度**：O(n)
 
 ## 快速排序 (Quick Sort)
 
@@ -360,7 +365,7 @@ public static int[] merge(int[] arr_1, int[] arr_2) {
 
 ### 图解算法
 
-![RandomQuickSort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/random_quick_sort.gif)
+![RandomQuickSort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/random_quick_sort.gif)
 
 ### 代码实现
 
@@ -395,9 +400,9 @@ public static void quickSort(int[] array, int low, int high) {
 
 ### 算法分析
 
-- **稳定性** ：不稳定
-- **时间复杂度** ：最佳：O(nlogn)， 最差：O(nlogn)，平均：O(nlogn)
-- **空间复杂度** ：O(nlogn)
+- **稳定性**：不稳定
+- **时间复杂度**：最佳：O(nlogn)， 最差：O(nlogn)，平均：O(nlogn)
+- **空间复杂度**：O(logn)
 
 ## 堆排序 (Heap Sort)
 
@@ -411,7 +416,7 @@ public static void quickSort(int[] array, int low, int high) {
 
 ### 图解算法
 
-![HeapSort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/heap_sort.gif)
+![HeapSort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/heap_sort.gif)
 
 ### 代码实现
 
@@ -484,9 +489,9 @@ public static int[] heapSort(int[] arr) {
 
 ### 算法分析
 
-- **稳定性** ：不稳定
-- **时间复杂度** ：最佳：O(nlogn)， 最差：O(nlogn)， 平均：O(nlogn)
-- **空间复杂度** ：O(1)
+- **稳定性**：不稳定
+- **时间复杂度**：最佳：O(nlogn)， 最差：O(nlogn)， 平均：O(nlogn)
+- **空间复杂度**：O(1)
 
 ## 计数排序 (Counting Sort)
 
@@ -505,7 +510,7 @@ public static int[] heapSort(int[] arr) {
 
 ### 图解算法
 
-![CountingSort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/counting_sort.gif)
+![CountingSort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/counting_sort.gif)
 
 ### 代码实现
 
@@ -564,9 +569,9 @@ public static int[] countingSort(int[] arr) {
 
 当输入的元素是 `n` 个 `0` 到 `k` 之间的整数时，它的运行时间是 `O(n+k)`。计数排序不是比较排序，排序的速度快于任何比较排序算法。由于用来计数的数组 `C` 的长度取决于待排序数组中数据的范围（等于待排序数组的**最大值与最小值的差加上 1**），这使得计数排序对于数据范围很大的数组，需要大量额外内存空间。
 
-- **稳定性** ：稳定
-- **时间复杂度** ：最佳：`O(n+k)` 最差：`O(n+k)` 平均：`O(n+k)`
-- **空间复杂度** ：`O(k)`
+- **稳定性**：稳定
+- **时间复杂度**：最佳：`O(n+k)` 最差：`O(n+k)` 平均：`O(n+k)`
+- **空间复杂度**：`O(k)`
 
 ## 桶排序 (Bucket Sort)
 
@@ -586,7 +591,7 @@ public static int[] countingSort(int[] arr) {
 
 ### 图解算法
 
-![BucketSort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/bucket_sort.gif)
+![BucketSort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/bucket_sort.gif)
 
 ### 代码实现
 
@@ -647,9 +652,9 @@ public static List<Integer> bucketSort(List<Integer> arr, int bucket_size) {
 
 ### 算法分析
 
-- **稳定性** ：稳定
-- **时间复杂度** ：最佳：`O(n+k)` 最差：`O(n²)` 平均：`O(n+k)`
-- **空间复杂度** ：`O(k)`
+- **稳定性**：稳定
+- **时间复杂度**：最佳：`O(n+k)` 最差：`O(n²)` 平均：`O(n+k)`
+- **空间复杂度**：`O(n+k)`
 
 ## 基数排序 (Radix Sort)
 
@@ -667,7 +672,7 @@ public static List<Integer> bucketSort(List<Integer> arr, int bucket_size) {
 
 ### 图解算法
 
-![RadixSort](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/cs-basics/sorting-algorithms/radix_sort.gif)
+![RadixSort](https://oss.javaguide.cn/github/javaguide/cs-basics/sorting-algorithms/radix_sort.gif)
 
 ### 代码实现
 
@@ -715,9 +720,9 @@ public static int[] radixSort(int[] arr) {
 
 ### 算法分析
 
-- **稳定性** ：稳定
-- **时间复杂度** ：最佳：`O(n×k)` 最差：`O(n×k)` 平均：`O(n×k)`
-- **空间复杂度** ：`O(n+k)`
+- **稳定性**：稳定
+- **时间复杂度**：最佳：`O(n×k)` 最差：`O(n×k)` 平均：`O(n×k)`
+- **空间复杂度**：`O(n+k)`
 
 **基数排序 vs 计数排序 vs 桶排序**
 
@@ -729,6 +734,6 @@ public static int[] radixSort(int[] arr) {
 
 ## 参考文章
 
-- https://www.cnblogs.com/guoyaohua/p/8600214.html
-- https://en.wikipedia.org/wiki/Sorting_algorithm
-- https://sort.hust.cc/
+- <https://www.cnblogs.com/guoyaohua/p/8600214.html>
+- <https://en.wikipedia.org/wiki/Sorting_algorithm>
+- <https://sort.hust.cc/>

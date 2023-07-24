@@ -1,5 +1,5 @@
 ---
-title:  命名
+title: 代码命名指南
 category: 代码质量
 ---
 
@@ -17,13 +17,13 @@ category: 代码质量
 
 据说之前在 Quora 网站，由接近 5000 名程序员票选出来的最难的事情就是“命名”。
 
-大名鼎鼎的《重构》的作者老马（Martin Fowler）曾经在[TwoHardThings](https://martinfowler.com/bliki/TwoHardThings.html)这篇文章中提到过CS 领域有两大最难的事情：一是 **缓存失效** ，一是 **程序命名** 。
+大名鼎鼎的《重构》的作者老马（Martin Fowler）曾经在[TwoHardThings](https://martinfowler.com/bliki/TwoHardThings.html)这篇文章中提到过 CS 领域有两大最难的事情：一是 **缓存失效** ，一是 **程序命名** 。
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/java-guide-blog/marting-naming.png)
+![](https://oss.javaguide.cn/java-guide-blog/marting-naming.png)
 
 这个句话实际上也是老马引用别人的，类似的表达还有很多。比如分布式系统领域有两大最难的事情：一是 **保证消息顺序** ，一是 **严格一次传递** 。
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/java-guide-blog/20210629104844645.png)
+![](https://oss.javaguide.cn/java-guide-blog/20210629104844645.png)
 
 今天咱们就单独拎出 “**命名**” 来聊聊！
 
@@ -138,7 +138,7 @@ void shouldGet200StatusCodeWhenRequestIsValid() {
 
 建议项目文件夹名称使用串式命名法（kebab-case），比如 dubbo 项目的各个模块的命名是下面这样的。
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/java-guide-blog/dubbo-naming.png)
+![](https://oss.javaguide.cn/java-guide-blog/dubbo-naming.png)
 
 ## 常见命名规范
 
@@ -152,9 +152,9 @@ void shouldGet200StatusCodeWhenRequestIsValid() {
 
 **4、包名统一使用小写，尽量使用单个名词作为包名，各个单词通过 "." 分隔符连接，并且各个单词必须为单数。**
 
-正例： `org.apache.dubbo.common.threadlocal`
+正例：`org.apache.dubbo.common.threadlocal`
 
-反例： ~~`org.apache_dubbo.Common.threadLocals`~~
+反例：~~`org.apache_dubbo.Common.threadLocals`~~
 
 **5、抽象类命名使用 Abstract 开头**。
 
@@ -209,7 +209,7 @@ POJO 类中布尔类型的变量，都不要加 is 前缀，否则部分框架�
 
 **4、避免命名过长（50 个字符以内最好），过长的命名难以阅读并且丑陋。**
 
-**5、不要使用拼音，更不要使用中文。** 不过像 alibaba 、wuhan、taobao 这种国际通用名词可以当做英文来看待。
+**5、不要使用拼音，更不要使用中文。** 不过像 alibaba、wuhan、taobao 这种国际通用名词可以当做英文来看待。
 
 正例：discount
 
@@ -233,8 +233,8 @@ Codelf 提供了在线网站版本，网址：[https://unbug.github.io/codelf/](
 
 1. 《阿里巴巴 Java 开发手册》
 2. 《Clean Code》
-3. Google Java 代码指南：https://google.github.io/styleguide/javaguide.html
-4. 告别编码5分钟，命名2小时！史上最全的Java命名规范参考：https://www.cnblogs.com/liqiangchn/p/12000361.html 
+3. Google Java 代码指南：<https://google.github.io/styleguide/javaguide.html>
+4. 告别编码 5 分钟，命名 2 小时！史上最全的 Java 命名规范参考：<https://www.cnblogs.com/liqiangchn/p/12000361.html>
 
 ## 总结
 
@@ -247,4 +247,3 @@ Codelf 提供了在线网站版本，网址：[https://unbug.github.io/codelf/](
 另外，国人开发的一个叫做 Codelf 的网站被很多人称为“变量命名神器”，当你为命名而头疼的时候，你可以去参考一下上面提供的一些命名示例。
 
 最后，祝愿大家都不用再为命名而困扰!
-

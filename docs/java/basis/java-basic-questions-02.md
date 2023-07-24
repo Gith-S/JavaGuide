@@ -1,8 +1,15 @@
 ---
-title: Java基础常见知识&面试题总结(中)
+title: Java基础常见面试题总结(中)
 category: Java
 tag:
   - Java基础
+head:
+  - - meta
+    - name: keywords
+      content: 面向对象,构造方法,接口,抽象类,String,Object
+  - - meta
+    - name: description
+      content: 全网质量最高的Java基础常见知识点和面试题总结，希望对你有帮助！
 ---
 
 ## 面向对象基础
@@ -16,33 +23,115 @@ tag:
 
 另外，面向对象开发的程序一般更易维护、易复用、易扩展。
 
-相关 issue : [面向过程 ：面向过程性能比面向对象高？？](https://github.com/Snailclimb/JavaGuide/issues/431)
+相关 issue : [面向过程：面向过程性能比面向对象高？？](https://github.com/Snailclimb/JavaGuide/issues/431) 。
 
-### 成员变量与局部变量的区别
+下面是一个求圆的面积和周长的示例，简单分别展示了面向对象和面向过程两种不同的解决方案。
 
-- **语法形式** ：从语法形式上看，成员变量是属于类的，而局部变量是在代码块或方法中定义的变量或是方法的参数；成员变量可以被 `public`,`private`,`static` 等修饰符所修饰，而局部变量不能被访问控制修饰符及 `static` 所修饰；但是，成员变量和局部变量都能被 `final` 所修饰。
-- **存储方式** ：从变量在内存中的存储方式来看,如果成员变量是使用 `static` 修饰的，那么这个成员变量是属于类的，如果没有使用 `static` 修饰，这个成员变量是属于实例的。而对象存在于堆内存，局部变量则存在于栈内存。
-- **生存时间** ：从变量在内存中的生存时间上看，成员变量是对象的一部分，它随着对象的创建而存在，而局部变量随着方法的调用而自动生成，随着方法的调用结束而消亡。
-- **默认值** ：从变量是否有默认值来看，成员变量如果没有被赋初始值，则会自动以类型的默认值而赋值（一种情况例外:被 `final` 修饰的成员变量也必须显式地赋值），而局部变量则不会自动赋值。
+**面向对象**：
+
+```java
+public class Circle {
+    // 定义圆的半径
+    private double radius;
+
+    // 构造函数
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    // 计算圆的面积
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
+    // 计算圆的周长
+    public double getPerimeter() {
+        return 2 * Math.PI * radius;
+    }
+
+    public static void main(String[] args) {
+        // 创建一个半径为3的圆
+        Circle circle = new Circle(3.0);
+
+        // 输出圆的面积和周长
+        System.out.println("圆的面积为：" + circle.getArea());
+        System.out.println("圆的周长为：" + circle.getPerimeter());
+    }
+}
+```
+
+我们定义了一个 `Circle` 类来表示圆，该类包含了圆的半径属性和计算面积、周长的方法。
+
+**面向过程**：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // 定义圆的半径
+        double radius = 3.0;
+
+        // 计算圆的面积和周长
+        double area = Math.PI * radius * radius;
+        double perimeter = 2 * Math.PI * radius;
+
+        // 输出圆的面积和周长
+        System.out.println("圆的面积为：" + area);
+        System.out.println("圆的周长为：" + perimeter);
+    }
+}
+```
+
+我们直接定义了圆的半径，并使用该半径直接计算出圆的面积和周长。
 
 ### 创建一个对象用什么运算符?对象实体与对象引用有何不同?
 
-new 运算符，new 创建对象实例（对象实例在堆内存中），对象引用指向对象实例（对象引用存放在栈内存中）。
+new 运算符，new 创建对象实例（对象实例在
+内存中），对象引用指向对象实例（对象引用存放在栈内存中）。
 
-一个对象引用可以指向 0 个或 1 个对象（一根绳子可以不系气球，也可以系一个气球）;一个对象可以有 n 个引用指向它（可以用 n 条绳子系住一个气球）。
+- 一个对象引用可以指向 0 个或 1 个对象（一根绳子可以不系气球，也可以系一个气球）；
+- 一个对象可以有 n 个引用指向它（可以用 n 条绳子系住一个气球）。
 
 ### 对象的相等和引用相等的区别
 
 - 对象的相等一般比较的是内存中存放的内容是否相等。
 - 引用相等一般比较的是他们指向的内存地址是否相等。
 
-### 类的构造方法的作用是什么?
+这里举一个例子：
 
-构造方法是一种特殊的方法，主要作用是完成对象的初始化工作。
+```java
+String str1 = "hello";
+String str2 = new String("hello");
+String str3 = "hello";
+// 使用 == 比较字符串的引用相等
+System.out.println(str1 == str2);
+System.out.println(str1 == str3);
+// 使用 equals 方法比较字符串的相等
+System.out.println(str1.equals(str2));
+System.out.println(str1.equals(str3));
+
+```
+
+输出结果：
+
+```
+false
+true
+true
+true
+```
+
+从上面的代码输出结果可以看出：
+
+- `str1` 和 `str2` 不相等，而 `str1` 和 `str3` 相等。这是因为 `==` 运算符比较的是字符串的引用是否相等。
+- `str1`、 `str2`、`str3` 三者的内容都相等。这是因为`equals` 方法比较的是字符串的内容，即使这些字符串的对象引用不同，只要它们的内容相等，就认为它们是相等的。
 
 ### 如果一个类没有声明构造方法，该程序能正确执行吗?
 
-如果一个类没有声明构造方法，也可以执行！因为一个类即使没有声明构造方法也会有默认的不带参数的构造方法。如果我们自己添加了类的构造方法（无论是否有参），Java 就不会再添加默认的无参数的构造方法了，我们一直在不知不觉地使用构造方法，这也是为什么我们在创建对象的时候后面要加一个括号（因为要调用无参的构造方法）。如果我们重载了有参的构造方法，记得都要把无参的构造方法也写出来（无论是否用到），因为这可以帮助我们在创建对象的时候少踩坑。
+构造方法是一种特殊的方法，主要作用是完成对象的初始化工作。
+
+如果一个类没有声明构造方法，也可以执行！因为一个类即使没有声明构造方法也会有默认的不带参数的构造方法。如果我们自己添加了类的构造方法（无论是否有参），Java 就不会添加默认的无参数的构造方法了。
+
+我们一直在不知不觉地使用构造方法，这也是为什么我们在创建对象的时候后面要加一个括号（因为要调用无参的构造方法）。如果我们重载了有参的构造方法，记得都要把无参的构造方法也写出来（无论是否用到），因为这可以帮助我们在创建对象的时候少踩坑。
 
 ### 构造方法有哪些特点？是否可被 override?
 
@@ -110,15 +199,15 @@ public class Student {
 
 ### 接口和抽象类有什么共同点和区别？
 
-**共同点** ：
+**共同点**：
 
 - 都不能被实例化。
 - 都可以包含抽象方法。
 - 都可以有默认实现的方法（Java 8 可以用 `default` 关键字在接口中定义默认方法）。
 
-**区别** ：
+**区别**：
 
-- 接口主要用于对类的行为进行约束，你实现了某个接口就具有了对应的行为。抽象类主要用于代码复用，强调的是所属关系（比如说我们抽象了一个发送短信的抽象类，）。
+- 接口主要用于对类的行为进行约束，你实现了某个接口就具有了对应的行为。抽象类主要用于代码复用，强调的是所属关系。
 - 一个类只能继承一个类，但是可以实现多个接口。
 - 接口中的成员变量只能是 `public static final` 类型的，不能被修改且必须有初始值，而抽象类的成员变量默认 default，可在子类中被重新定义，也可被重新赋值。
 
@@ -127,11 +216,11 @@ public class Student {
 关于深拷贝和浅拷贝区别，我这里先给结论：
 
 - **浅拷贝**：浅拷贝会在堆上创建一个新的对象（区别于引用拷贝的一点），不过，如果原对象内部的属性是引用类型的话，浅拷贝会直接复制内部对象的引用地址，也就是说拷贝对象和原对象共用同一个内部对象。
-- **深拷贝** ：深拷贝会完全复制整个对象，包括这个对象所包含的内部对象。
+- **深拷贝**：深拷贝会完全复制整个对象，包括这个对象所包含的内部对象。
 
 上面的结论没有完全理解的话也没关系，我们来看一个具体的案例！
 
-**浅拷贝**
+#### 浅拷贝
 
 浅拷贝的示例代码如下，我们这里实现了 `Cloneable` 接口，并重写了 `clone()` 方法。
 
@@ -166,7 +255,7 @@ public class Person implements Cloneable {
 }
 ```
 
-测试 ：
+测试：
 
 ```java
 Person person1 = new Person(new Address("武汉"));
@@ -177,7 +266,7 @@ System.out.println(person1.getAddress() == person1Copy.getAddress());
 
 从输出结构就可以看出， `person1` 的克隆对象和 `person1` 使用的仍然是同一个 `Address` 对象。
 
-**深拷贝**
+#### 深拷贝
 
 这里我们简单对 `Person` 类的 `clone()` 方法进行修改，连带着要把 `Person` 对象内部的 `Address` 对象一起复制。
 
@@ -194,7 +283,7 @@ public Person clone() {
 }
 ```
 
-测试 ：
+测试：
 
 ```java
 Person person1 = new Person(new Address("武汉"));
@@ -203,19 +292,17 @@ Person person1Copy = person1.clone();
 System.out.println(person1.getAddress() == person1Copy.getAddress());
 ```
 
-从输出结构就可以看出，虽然 `person1` 的克隆对象和 `person1` 包含的 `Address` 对象已经是不同的了。
+从输出结构就可以看出，显然 `person1` 的克隆对象和 `person1` 包含的 `Address` 对象已经是不同的了。
 
 **那什么是引用拷贝呢？** 简单来说，引用拷贝就是两个不同的引用指向同一个对象。
 
 我专门画了一张图来描述浅拷贝、深拷贝、引用拷贝：
 
-![](./images/shallow&deep-copy.png)
+![浅拷贝、深拷贝、引用拷贝示意图](https://oss.javaguide.cn/github/javaguide/java/basis/shallow&deep-copy.png)
 
-## Java 常见类
+## Object
 
-### Object
-
-#### Object 类的常见方法有哪些？
+### Object 类的常见方法有哪些？
 
 Object 类是一个特殊的类，是所有类的父类。它主要提供了以下 11 个方法：
 
@@ -233,7 +320,7 @@ public native int hashCode()
  */
 public boolean equals(Object obj)
 /**
- * naitive 方法，用于创建并返回当前对象的一份拷贝。
+ * native 方法，用于创建并返回当前对象的一份拷贝。
  */
 protected native Object clone() throws CloneNotSupportedException
 /**
@@ -266,7 +353,7 @@ public final void wait() throws InterruptedException
 protected void finalize() throws Throwable { }
 ```
 
-#### == 和 equals() 的区别
+### == 和 equals() 的区别
 
 **`==`** 对于基本类型和引用类型的作用效果是不同的：
 
@@ -287,8 +374,8 @@ public boolean equals(Object obj) {
 
 `equals()` 方法存在两种使用情况：
 
-- **类没有重写 `equals()`方法** ：通过`equals()`比较该类的两个对象时，等价于通过“==”比较这两个对象，使用的默认是 `Object`类`equals()`方法。
-- **类重写了 `equals()`方法** ：一般我们都重写 `equals()`方法来比较两个对象中的属性是否相等；若它们的属性相等，则返回 true(即，认为这两个对象相等)。
+- **类没有重写 `equals()`方法**：通过`equals()`比较该类的两个对象时，等价于通过“==”比较这两个对象，使用的默认是 `Object`类`equals()`方法。
+- **类重写了 `equals()`方法**：一般我们都重写 `equals()`方法来比较两个对象中的属性是否相等；若它们的属性相等，则返回 true(即，认为这两个对象相等)。
 
 举个例子（这里只是为了举例。实际上，你按照下面这种写法的话，像 IDEA 这种比较智能的 IDE 都会提示你将 `==` 换成 `equals()` ）：
 
@@ -333,11 +420,18 @@ public boolean equals(Object anObject) {
 }
 ```
 
-#### hashCode() 有什么用？
+### hashCode() 有什么用？
 
 `hashCode()` 的作用是获取哈希码（`int` 整数），也称为散列码。这个哈希码的作用是确定该对象在哈希表中的索引位置。
 
-`hashCode()`定义在 JDK 的 `Object` 类中，这就意味着 Java 中的任何类都包含有 `hashCode()` 函数。另外需要注意的是： `Object` 的 `hashCode()` 方法是本地方法，也就是用 C 语言或 C++ 实现的，该方法通常用来将对象的内存地址转换为整数之后返回。
+![hashCode() 方法](https://oss.javaguide.cn/github/javaguide/java/basis/java-hashcode-method.png)
+
+`hashCode()` 定义在 JDK 的 `Object` 类中，这就意味着 Java 中的任何类都包含有 `hashCode()` 函数。另外需要注意的是：`Object` 的 `hashCode()` 方法是本地方法，也就是用 C 语言或 C++ 实现的。
+
+> ⚠️ 注意：该方法在 **Oracle OpenJDK8** 中默认是 "使用线程局部状态来实现 Marsaglia's xor-shift 随机数生成", 并不是 "地址" 或者 "地址转换而来", 不同 JDK/VM 可能不同在 **Oracle OpenJDK8** 中有六种生成方式 (其中第五种是返回地址), 通过添加 VM 参数: -XX:hashCode=4 启用第五种。参考源码:
+>
+> - https://hg.openjdk.org/jdk8u/jdk8u/hotspot/file/87ee5ee27509/src/share/vm/runtime/globals.hpp（1127行）
+> - https://hg.openjdk.org/jdk8u/jdk8u/hotspot/file/87ee5ee27509/src/share/vm/runtime/synchronizer.cpp（537行开始）
 
 ```java
 public native int hashCode();
@@ -345,7 +439,7 @@ public native int hashCode();
 
 散列表存储的是键值对(key-value)，它的特点是：**能根据“键”快速的检索出对应的“值”。这其中就利用到了散列码！（可以快速找到所需要的对象）**
 
-#### 为什么要有 hashCode？
+### 为什么要有 hashCode？
 
 我们以“`HashSet` 如何检查重复”为例子来说明为什么要有 `hashCode`？
 
@@ -369,7 +463,7 @@ public native int hashCode();
 
 因为 `hashCode()` 所使用的哈希算法也许刚好会让多个对象传回相同的哈希值。越糟糕的哈希算法越容易碰撞，但这也与数据值域分布的特性有关（所谓哈希碰撞也就是指的是不同的对象得到相同的 `hashCode` )。
 
-总结下来就是 ：
+总结下来就是：
 
 - 如果两个对象的`hashCode` 值相等，那这两个对象不一定相等（哈希碰撞）。
 - 如果两个对象的`hashCode` 值相等并且`equals()`方法也返回 `true`，我们才认为这两个对象相等。
@@ -377,24 +471,24 @@ public native int hashCode();
 
 相信大家看了我前面对 `hashCode()` 和 `equals()` 的介绍之后，下面这个问题已经难不倒你们了。
 
-#### 为什么重写 equals() 时必须重写 hashCode() 方法？
+### 为什么重写 equals() 时必须重写 hashCode() 方法？
 
 因为两个相等的对象的 `hashCode` 值必须是相等。也就是说如果 `equals` 方法判断两个对象是相等的，那这两个对象的 `hashCode` 值也要相等。
 
 如果重写 `equals()` 时没有重写 `hashCode()` 方法的话就可能会导致 `equals` 方法判断是相等的两个对象，`hashCode` 值却不相等。
 
-**思考** ：重写 `equals()` 时没有重写 `hashCode()` 方法的话，使用 `HashMap` 可能会出现什么问题。
+**思考**：重写 `equals()` 时没有重写 `hashCode()` 方法的话，使用 `HashMap` 可能会出现什么问题。
 
-**总结** ：
+**总结**：
 
 - `equals` 方法判断两个对象是相等的，那这两个对象的 `hashCode` 值也要相等。
 - 两个对象有相同的 `hashCode` 值，他们也不一定是相等的（哈希碰撞）。
 
 更多关于 `hashCode()` 和 `equals()` 的内容可以查看：[Java hashCode() 和 equals()的若干问题解答](https://www.cnblogs.com/skywang12345/p/3324958.html)
 
-### String
+## String
 
-#### String、StringBuffer、StringBuilder 的区别？
+### String、StringBuffer、StringBuilder 的区别？
 
 **可变性**
 
@@ -432,7 +526,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
 2. 单线程操作字符串缓冲区下操作大量数据: 适用 `StringBuilder`
 3. 多线程操作字符串缓冲区下操作大量数据: 适用 `StringBuffer`
 
-#### String 为什么是不可变的?
+### String 为什么是不可变的?
 
 `String` 类中使用 `final` 关键字修饰字符数组来保存字符串，~~所以`String` 对象是不可变的。~~
 
@@ -443,7 +537,7 @@ public final class String implements java.io.Serializable, Comparable<String>, C
 }
 ```
 
-> 🐛 修正 ： 我们知道被 `final` 关键字修饰的类不能被继承，修饰的方法不能被重写，修饰的变量是基本数据类型则值不能改变，修饰的变量是引用类型则不能再指向其他对象。因此，`final` 关键字修饰的数组保存字符串并不是 `String` 不可变的根本原因，因为这个数组保存的字符串是可变的（`final` 修饰引用类型变量的情况）。
+> 🐛 修正：我们知道被 `final` 关键字修饰的类不能被继承，修饰的方法不能被重写，修饰的变量是基本数据类型则值不能改变，修饰的变量是引用类型则不能再指向其他对象。因此，`final` 关键字修饰的数组保存字符串并不是 `String` 不可变的根本原因，因为这个数组保存的字符串是可变的（`final` 修饰引用类型变量的情况）。
 >
 > `String` 真正不可变有下面几点原因：
 >
@@ -452,7 +546,7 @@ public final class String implements java.io.Serializable, Comparable<String>, C
 >
 > 相关阅读：[如何理解 String 类型值的不可变？ - 知乎提问](https://www.zhihu.com/question/20618891/answer/114125846)
 >
-> 补充（来自[issue 675](https://github.com/Snailclimb/JavaGuide/issues/675)）：在 Java 9 之后，`String` 、`StringBuilder` 与 `StringBuffer` 的实现改用 `byte` 数组存储字符串。
+> 补充（来自[issue 675](https://github.com/Snailclimb/JavaGuide/issues/675)）：在 Java 9 之后，`String`、`StringBuilder` 与 `StringBuffer` 的实现改用 `byte` 数组存储字符串。
 >
 > ```java
 > public final class String implements java.io.Serializable,Comparable<String>, CharSequence {
@@ -460,28 +554,28 @@ public final class String implements java.io.Serializable, Comparable<String>, C
 >     @Stable
 >     private final byte[] value;
 > }
-> 
+>
 > abstract class AbstractStringBuilder implements Appendable, CharSequence {
 >     byte[] value;
-> 
+>
 > }
 > ```
 >
 > **Java 9 为何要将 `String` 的底层实现由 `char[]` 改成了 `byte[]` ?**
 >
-> 新版的 String 其实支持两个编码方案： Latin-1 和 UTF-16。如果字符串中包含的汉字没有超过 Latin-1 可表示范围内的字符，那就会使用 Latin-1 作为编码方案。Latin-1 编码方案下，`byte` 占一个字节(8 位)，`char` 占用 2 个字节（16），`byte` 相较 `char` 节省一半的内存空间。
+> 新版的 String 其实支持两个编码方案：Latin-1 和 UTF-16。如果字符串中包含的汉字没有超过 Latin-1 可表示范围内的字符，那就会使用 Latin-1 作为编码方案。Latin-1 编码方案下，`byte` 占一个字节(8 位)，`char` 占用 2 个字节（16），`byte` 相较 `char` 节省一半的内存空间。
 >
 > JDK 官方就说了绝大部分字符串对象只包含 Latin-1 可表示的字符。
 >
-> ![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/jdk9-string-latin1.png)
+> ![](https://oss.javaguide.cn/github/javaguide/jdk9-string-latin1.png)
 >
 > 如果字符串中包含的汉字超过 Latin-1 可表示范围内的字符，`byte` 和 `char` 所占用的空间是一样的。
 >
 > 这是官方的介绍：https://openjdk.java.net/jeps/254 。
 
-#### 字符串拼接用“+” 还是 StringBuilder?
+### 字符串拼接用“+” 还是 StringBuilder?
 
-Java 语言本身并不支持运算符重载，“+”和“+=”是专门为 String 类重载过的运算符，也是 Java 中仅有的两个重载过的元素符。
+Java 语言本身并不支持运算符重载，“+”和“+=”是专门为 String 类重载过的运算符，也是 Java 中仅有的两个重载过的运算符。
 
 ```java
 String str1 = "he";
@@ -492,7 +586,7 @@ String str4 = str1 + str2 + str3;
 
 上面的代码对应的字节码如下：
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/java/image-20220422161637929.png)
+![](https://oss.javaguide.cn/github/javaguide/java/image-20220422161637929.png)
 
 可以看出，字符串对象通过“+”的字符串拼接方式，实际上是通过 `StringBuilder` 调用 `append()` 方法实现的，拼接完成之后调用 `toString()` 得到一个 `String` 对象 。
 
@@ -509,7 +603,7 @@ System.out.println(s);
 
 `StringBuilder` 对象是在循环内部被创建的，这意味着每循环一次就会创建一个 `StringBuilder` 对象。
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/java/image-20220422161320823.png)
+![](https://oss.javaguide.cn/github/javaguide/java/image-20220422161320823.png)
 
 如果直接使用 `StringBuilder` 对象进行字符串拼接的话，就不会存在这个问题了。
 
@@ -522,15 +616,17 @@ for (String value : arr) {
 System.out.println(s);
 ```
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/java/image-20220422162327415.png)
+![](https://oss.javaguide.cn/github/javaguide/java/image-20220422162327415.png)
 
 如果你使用 IDEA 的话，IDEA 自带的代码检查机制也会提示你修改代码。
 
-#### String#equals() 和 Object#equals() 有何区别？
+不过，使用 “+” 进行字符串拼接会产生大量的临时对象的问题在 JDK9 中得到了解决。在 JDK9 当中，字符串相加 “+” 改为了用动态方法 `makeConcatWithConstants()` 来实现，而不是大量的 `StringBuilder` 了。这个改进是 JDK9 的 [JEP 280](https://openjdk.org/jeps/280) 提出的，这也意味着 JDK 9 之后，你可以放心使用“+” 进行字符串拼接了。关于这部分改进的详细介绍，推荐阅读这篇文章：还在无脑用 [StringBuilder？来重温一下字符串拼接吧](https://juejin.cn/post/7182872058743750715) 。
+
+### String#equals() 和 Object#equals() 有何区别？
 
 `String` 中的 `equals` 方法是被重写过的，比较的是 String 字符串的值是否相等。 `Object` 的 `equals` 方法是比较的对象的内存地址。
 
-#### 字符串常量池的作用了解吗？
+### 字符串常量池的作用了解吗？
 
 **字符串常量池** 是 JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了避免字符串的重复创建。
 
@@ -545,11 +641,11 @@ System.out.println(aa==bb);// true
 
 更多关于字符串常量池的介绍可以看一下 [Java 内存区域详解](https://javaguide.cn/java/jvm/memory-area.html) 这篇文章。
 
-#### String s1 = new String("abc");这句话创建了几个字符串对象？
+### String s1 = new String("abc");这句话创建了几个字符串对象？
 
 会创建 1 或 2 个字符串对象。
 
-1、如果字符串常量池中不存在字符串对象“abc”的引用，那么会在堆中创建 2 个字符串对象“abc”。
+1、如果字符串常量池中不存在字符串对象“abc”的引用，那么它将首先在字符串常量池中创建，然后在堆空间中创建，因此将创建总共 2 个字符串对象。
 
 示例代码（JDK 1.8）：
 
@@ -559,7 +655,7 @@ String s1 = new String("abc");
 
 对应的字节码：
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/open-source-project/image-20220413175809959.png)
+![](https://oss.javaguide.cn/github/javaguide/open-source-project/image-20220413175809959.png)
 
 `ldc` 命令用于判断字符串常量池中是否保存了对应的字符串对象的引用，如果保存了的话直接返回，如果没有保存的话，会在堆中创建对应的字符串对象并将该字符串对象的引用保存到字符串常量池中。
 
@@ -576,11 +672,11 @@ String s2 = new String("abc");
 
 对应的字节码：
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/github/javaguide/open-source-project/image-20220413180021072.png)
+![](https://oss.javaguide.cn/github/javaguide/open-source-project/image-20220413180021072.png)
 
 这里就不对上面的字节码进行详细注释了，7 这个位置的 `ldc` 命令不会在堆中创建新的字符串对象“abc”，这是因为 0 这个位置已经执行了一次 `ldc` 命令，已经在堆中创建过一次字符串对象“abc”了。7 这个位置执行 `ldc` 命令会直接返回字符串常量池中字符串对象“abc”对应的引用。
 
-#### intern 方法有什么作用?
+### String#intern 方法有什么作用?
 
 `String.intern()` 是一个 native（本地）方法，其作用是将指定的字符串对象的引用保存在字符串常量池中，可以简单分为两种情况：
 
@@ -607,7 +703,7 @@ System.out.println(s3 == s4); // false
 System.out.println(s1 == s4); //true
 ```
 
-#### String 类型的变量和常量做“+”运算时发生了什么？
+### String 类型的变量和常量做“+”运算时发生了什么？
 
 先来看字符串不加 `final` 关键字拼接的情况（JDK1.8）：
 
@@ -622,15 +718,15 @@ System.out.println(str3 == str5);//true
 System.out.println(str4 == str5);//false
 ```
 
-> **注意** ：比较 String 字符串的值是否相等，可以使用 `equals()` 方法。 `String` 中的 `equals` 方法是被重写过的。 `Object` 的 `equals` 方法是比较的对象的内存地址，而 `String` 的 `equals` 方法比较的是字符串的值是否相等。如果你使用 `==` 比较两个字符串是否相等的话，IDEA 还是提示你使用 `equals()` 方法替换。
+> **注意**：比较 String 字符串的值是否相等，可以使用 `equals()` 方法。 `String` 中的 `equals` 方法是被重写过的。 `Object` 的 `equals` 方法是比较的对象的内存地址，而 `String` 的 `equals` 方法比较的是字符串的值是否相等。如果你使用 `==` 比较两个字符串是否相等的话，IDEA 还是提示你使用 `equals()` 方法替换。
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/java-guide-blog/image-20210817123252441.png)
+![](https://oss.javaguide.cn/java-guide-blog/image-20210817123252441.png)
 
 **对于编译期可以确定值的字符串，也就是常量字符串 ，jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的字符串常量在编译阶段就已经被存放字符串常量池，这个得益于编译器的优化。**
 
 在编译过程中，Javac 编译器（下文中统称为编译器）会进行一个叫做 **常量折叠(Constant Folding)** 的代码优化。《深入理解 Java 虚拟机》中是也有介绍到：
 
-![](https://guide-blog-images.oss-cn-shenzhen.aliyuncs.com/javaguide/image-20210817142715396.png)
+![](https://oss.javaguide.cn/javaguide/image-20210817142715396.png)
 
 常量折叠会把常量表达式的值求出来作为常量嵌在最终生成的代码中，这是 Javac 编译器会对源代码做的极少量优化措施之一(代码优化几乎都在即时编译器中进行)。
 
@@ -665,7 +761,7 @@ String d = str1 + str2; // 常量池中的对象
 System.out.println(c == d);// true
 ```
 
-被 `final` 关键字修改之后的 `String` 会被编译器当做常量来处理，编译器在程序编译期就可以确定它的值，其效果就相当于访问常量。
+被 `final` 关键字修饰之后的 `String` 会被编译器当做常量来处理，编译器在程序编译期就可以确定它的值，其效果就相当于访问常量。
 
 如果 ，编译器在运行时才能知道其确切值的话，就无法对其优化。
 
@@ -684,5 +780,5 @@ public static String getStr() {
 
 ## 参考
 
-- 深入解析 String#intern<https://tech.meituan.com/2014/03/06/in-depth-understanding-string-intern.html>
+- 深入解析 String#intern：<https://tech.meituan.com/2014/03/06/in-depth-understanding-string-intern.html>
 - R 大（RednaxelaFX）关于常量折叠的回答：https://www.zhihu.com/question/55976094/answer/147302764
